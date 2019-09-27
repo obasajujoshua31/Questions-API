@@ -81,6 +81,10 @@ export class subjects1569540489301 implements MigrationInterface {
             name: "option",
             type: "varchar",
           },
+          {
+            name: "correct",
+            type: "boolean",
+          },
         ],
       }),
       true
@@ -121,23 +125,6 @@ export class subjects1569540489301 implements MigrationInterface {
         columnNames: ["topic_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "topics",
-        onDelete: "CASCADE",
-      })
-    );
-
-    await queryRunner.addColumn(
-      "questions",
-      new TableColumn({
-        name: "answer_id",
-        type: "int",
-      })
-    );
-    await queryRunner.createForeignKey(
-      "questions",
-      new TableForeignKey({
-        columnNames: ["answer_id"],
-        referencedColumnNames: ["id"],
-        referencedTableName: "options",
         onDelete: "CASCADE",
       })
     );
