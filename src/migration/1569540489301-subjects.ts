@@ -17,6 +17,7 @@ export class subjects1569540489301 implements MigrationInterface {
             name: "id",
             type: "int",
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: "name",
@@ -41,6 +42,7 @@ export class subjects1569540489301 implements MigrationInterface {
             name: "id",
             type: "int",
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: "title",
@@ -76,6 +78,7 @@ export class subjects1569540489301 implements MigrationInterface {
             name: "id",
             type: "int",
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: "option",
@@ -98,14 +101,15 @@ export class subjects1569540489301 implements MigrationInterface {
             name: "id",
             type: "int",
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: "question",
-            type: "varchar",
+            type: "varchar(400)",
           },
           {
             name: "source",
-            type: "varchar",
+            type: "varchar(400)",
           },
         ],
       }),
