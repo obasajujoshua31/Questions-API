@@ -1,42 +1,25 @@
-import * as express from "express";
-import "module-alias/register";
-import "reflect-metadata";
-import * as logger from "morgan";
-import databaseConnection from "../database/connect";
-import IRoute from "./routes/route.interface";
+import express, { Application, Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import logger from 'morgan';
+import router from './routes';
 
-class App {
-  public app: express.Application;
-  public port: number;
+const app: Application = express();
 
-  constructor(routes: IRoute[], port: number) {
-    this.app = express();
-    this.port = port;
-    this.initializeDatabase();
-    this.initializeMiddlewares();
-    this.initializeRoutes(routes);
-  }
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+if (process.env.NODE_ENV === 'development') app.use(logger('dev'));
 
-  private initializeMiddlewares() {
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(logger("dev"));
-  }
+app.use('/api/v1', router);
 
-  private initializeRoutes(routes: IRoute[]) {
-    routes.forEach(route => {
-      this.app.use(route.path, route.router);
-    });
-  }
+app.use('*', (req: Request, res: Response, next: NextFunction) => {
+  next({status: 404, message: 'The requested resource does not exist'});
+});
 
-  private async initializeDatabase() {
-    await databaseConnection;
-  }
-  public start() {
-    this.app.listen(this.port, (): void => {
-      console.log("Server started at", this.port);
-    });
-  }
-}
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.status || 500).json({ error: err.message || 'Something went wrong.'});
+});
 
-export default App;
+export default app;

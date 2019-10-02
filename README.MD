@@ -35,9 +35,9 @@ A step by step series of examples that tell you how to get a development env run
 
 4. Fill in your database credentials into `.env`.
 
-5. Run `yarn typeorm migration:run` in your terminal to setup the database tables.
+5. Run `yarn sequelize db:migrate` in your terminal to setup the database tables.
 
-6. Run `yarn start` to start the development server.
+6. Run `yarn dev` to start the development server.
 
 ## Usage <a name = "usage"></a>
 
