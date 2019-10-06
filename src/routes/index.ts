@@ -1,16 +1,8 @@
-import BiologyRoutes from "./biology";
-import IRoute from "./route.interface";
+import { Router } from 'express';
+import subjectRouter from './subjects.routes';
 
-const {
-  path: biologyPath,
-  router: biologyRouter,
-} = new BiologyRoutes().initializeControllers();
+const router = Router();
 
-const routes: IRoute[] = [
-  {
-    path: biologyPath,
-    router: biologyRouter,
-  },
-];
+router.use('/subjects', subjectRouter);
 
-export default routes;
+export default router;
